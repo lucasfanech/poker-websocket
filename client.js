@@ -10,7 +10,13 @@ ws.on('message', function(message) {
 );
 // on write, send message
 ws.on('open', function() {
-    ws.send('Client s\'est connecté');
+    var username= '';
+    console.log('Entrez un nom d\'utilisateur');
+    process.stdin.on('data', function(data) {
+        username = data.toString().trim();
+        }
+    );
+    ws.send('Client s\'est connecté: ' + username);
     // ecoute ecriture dans le terminal
     process.stdin.on('data', function(data) {
         ws.send(data);
