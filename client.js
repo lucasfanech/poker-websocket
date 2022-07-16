@@ -14,7 +14,14 @@ process.stdin.on('data', function(data) {
 );
 // listen for messages
 ws.on('message', function(message) {
-  console.log('received: %s', message);
+    // get size of username
+    var usernameSize = username.length;
+    //convert message to string
+    var FullMessage = message.toString();
+    // if FullMessage doesn't begin with ">" + username
+    if (!(FullMessage.substring(0, usernameSize + 1) === ">" + username)) {
+        console.log('%s', message);
+    }
 }
 );
 // on write, send message
