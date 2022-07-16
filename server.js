@@ -14,7 +14,32 @@ wss.on('connection', function(ws) {
         }
         );
     }
+
+
   });
+
+
 
 }
 );
+
+// ecoute écriture dans le terminal
+process.stdin.on('data', function(data) {
+      // si data commence par "/game"
+      if (data.toString().substring(0, 5) === "/game") {
+        // démarre la partie
+        console.log("La partie vient de commencer");
+        //compte les clients connectés
+        var nbClients = wss.clients.size;
+        console.log("Il y a "+nbClients+" clients connectés");
+        // envoie le nombre de clients connectés
+        wss.clients.forEach(function(client) {
+            client.send("La partie vient de commencer");
+            client.send("Il y a "+nbClients+" clients connectés");
+        }
+        );
+
+      }
+    }
+);
+
