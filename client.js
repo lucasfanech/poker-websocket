@@ -26,10 +26,16 @@ ws.on('message', function(message) {
 );
 // on write, send message
 ws.on('open', function() {
-
     // ecoute ecriture dans le terminal
     process.stdin.on('data', function(data) {
-        ws.send(username+": "+data);
+        // si data commence par "/ready"
+        if (data.toString().substring(0, 6) === "/ready") {
+            ws.send("/ready");
+        }
+        else{
+            ws.send(username+": "+data);
+        }
+
     }
     );
 }
